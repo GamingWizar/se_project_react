@@ -1,0 +1,38 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.header__content-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.header__logo {
+  margin-right: 24px;
+}
+
+.header__text {
+  margin: 0;
+}
+
+.header__add-clothes {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.header__name {
+  margin-left: 20px;
+}
+
+.header__profile-picture {
+  margin-left: 12px;
+  height: 40px;
+  border-radius: 50%;
+}
