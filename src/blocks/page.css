@@ -1,12 +1,13 @@
 .page {
   margin: 0;
-  font-family: "cabinet-grotesk", sans-serif;
+  font-family: "Cabinet Grotesk", sans-serif;
   font-weight: 700;
 }
 
 .page__content {
-  /* min-height: 100vh; */
+  min-height: 100vh;
   padding: 32px 40px 24px;
+  background-color: #f3f3f3;
 }
 
 .page__section {
