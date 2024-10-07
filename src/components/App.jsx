@@ -21,6 +21,7 @@ function App(props) {
     main: { temp: "" },
     name: "",
   });
+  const [tempSection, setTempSection] = React.useState("cold");
 
   const handleCardClick = (details) => {
     setOpenedModal("item");
@@ -32,6 +33,7 @@ function App(props) {
       .then((json) => {
         console.log(json);
         setWeatherInfo(json);
+        setTempSection(Weather.getTempSection(json.main.temp));
       })
       .catch((err) => {
         console.error(`ERROR: ${err}`);
@@ -50,6 +52,7 @@ function App(props) {
         temperature="75"
         handleCardClick={handleCardClick}
         weatherInfo={weatherInfo}
+        tempSection={tempSection}
       />
       <Footer />
       <ModalWithForm

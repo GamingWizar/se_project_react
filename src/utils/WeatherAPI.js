@@ -21,4 +21,14 @@ export default class WeatherAPI {
   getWeatherData() {
     return this._request();
   }
+
+  getTempSection(temp) {
+    if (temp >= 86) {
+      return "hot";
+    } else if (temp >= 66) {
+      return "warm";
+    } else {
+      return "cold";
+    }
+  }
 }

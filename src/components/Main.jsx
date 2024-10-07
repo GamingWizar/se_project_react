@@ -16,13 +16,17 @@ export default class Main extends React.Component {
           {`Today is ${this.props.weatherInfo.main.temp}° F / You may want to wear:`}
         </h2>
         <ul className="main__card-list">
-          {defaultClothingItems.map((clothingItem) => (
-            <ItemCard
-              details={clothingItem}
-              key={clothingItem._id}
-              handleCardClick={this.props.handleCardClick}
-            />
-          ))}
+          {defaultClothingItems
+            .filter((item) => {
+              return item.weather.includes(this.props.tempSection);
+            })
+            .map((clothingItem) => (
+              <ItemCard
+                details={clothingItem}
+                key={clothingItem._id}
+                handleCardClick={this.props.handleCardClick}
+              />
+            ))}
         </ul>
       </main>
     );
