@@ -29,6 +29,11 @@
   padding: 0;
 }
 
+.header__add-clothes:hover {
+  opacity: 60%;
+  cursor: pointer;
+}
+
 .header__name {
   margin-left: 20px;
 }

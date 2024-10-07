@@ -52,6 +52,7 @@
 
 .modal__close:hover {
   opacity: 60%;
+  cursor: pointer;
 }
 
 .modal__form-submit {
@@ -70,6 +71,7 @@
 
 .modal__form-submit:hover {
   opacity: 60%;
+  cursor: pointer;
 }
 
 .modal__form-label {

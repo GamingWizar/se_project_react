@@ -20,7 +20,11 @@ export default class Header extends React.Component {
           <p className="header__text header__date">{`${currentDate}, Sharpsburg`}</p>
         </div>
         <div className="header__content-wrapper">
-          <button className="header__add-clothes" type="button">
+          <button
+            className="header__add-clothes"
+            type="button"
+            onClick={this.props.addClothes}
+          >
             + Add clothes
           </button>
           <p className="header__text header__name">Terrence Tegegne</p>
