@@ -29,7 +29,7 @@ export default class ModalWithForm extends React.Component {
           this.props.openedModal == `${this.props.name}` && "modal_opened"
         }`}
       >
-        <div className="modal__container">
+        <div className="modal__container modal__container_type_form">
           <form className="modal__form" name={this.props.name}>
             <h3 className="modal__title">{this.props.title}</h3>
             <button

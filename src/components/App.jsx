@@ -8,13 +8,14 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
 import ModalWithForm from "./ModalWithForm";
+import ItemModal from "./ItemModal";
 
 function App(props) {
   const [openedModal, setOpenedModal] = React.useState("");
   const [cardInfo, setCardInfo] = React.useState({});
 
   const handleCardClick = (details) => {
-    setOpenedModal("item-card-form");
+    setOpenedModal("item");
     setCardInfo(details);
   };
 
@@ -97,6 +98,13 @@ function App(props) {
           </label>
         </div>
       </ModalWithForm>
+      <ItemModal
+        details={cardInfo}
+        openedModal={openedModal}
+        onClose={() => {
+          setOpenedModal("");
+        }}
+      />
     </>
   );
 }

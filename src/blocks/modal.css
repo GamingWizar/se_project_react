@@ -17,11 +17,19 @@
 
 .modal__container {
   background-color: #ffffff;
-  border-color: #0000004d;
+  border: 1px solid #0000004d;
   border-radius: 20px;
+  position: relative;
+}
+
+.modal__container_type_form {
   width: 440px;
   padding: 28px 28px 36px;
-  position: relative;
+}
+
+.modal__container_type_item {
+  width: 496px;
+  overflow: hidden;
 }
 
 .modal__form {
@@ -53,6 +61,11 @@
 .modal__close:hover {
   opacity: 60%;
   cursor: pointer;
+}
+
+.modal__close_modal_item {
+  top: 24px;
+  right: 24px;
 }
 
 .modal__form-submit {
@@ -156,4 +169,25 @@
   + .modal__form-radio-button
   + .modal__form-radio-text {
   opacity: 100%;
+}
+
+.modal__image {
+  width: 498px;
+  margin-bottom: 20px;
+}
+
+.modal__item-text-wrapper {
+  margin: 0 0 32px 32px;
+}
+
+.modal__item-text {
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0 0 12px 0;
+}
+
+.modal__item-text_last {
+  margin: 0;
 }
