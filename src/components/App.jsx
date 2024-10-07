@@ -11,18 +11,31 @@ import Main from "./Main";
 import ModalWithForm from "./ModalWithForm";
 import ItemModal from "./ItemModal";
 import WeatherAPI from "../utils/WeatherAPI";
-
+import daySunny from "../assets/sunny.svg";
+import dayCloudy from "../assets/cloudy.svg";
+import dayRainy from "../assets/rainy.svg";
+import dayStormy from "../assets/stormy.svg";
+import daySnowy from "../assets/snowy.svg";
+import dayFoggy from "../assets/foggy.svg";
+import nightSunny from "../assets/night_clear.svg";
+import nightCloudy from "../assets/night_cloudy.svg";
+import nightRainy from "../assets/night_rainy.svg";
+import nightStormy from "../assets/night_stormy.svg";
+import nightSnowy from "../assets/night_snowy.svg";
+import nightFoggy from "../assets/night_foggy.svg";
 const Weather = new WeatherAPI(weatherKey, latitude, longitude);
 
 function App(props) {
   const [openedModal, setOpenedModal] = React.useState("");
   const [cardInfo, setCardInfo] = React.useState({});
   const [weatherInfo, setWeatherInfo] = React.useState({
-    main: { temp: "" },
+    temp: "",
     name: "",
+    tempSection: "",
+    weatherType: "",
+    isDay: true,
   });
-  const [tempSection, setTempSection] = React.useState("cold");
-
+  const [weatherImage, setWeatherImage] = React.useState(daySunny);
   const handleCardClick = (details) => {
     setOpenedModal("item");
     setCardInfo(details);
@@ -30,10 +43,38 @@ function App(props) {
 
   React.useEffect(() => {
     Weather.getWeatherData()
-      .then((json) => {
-        console.log(json);
-        setWeatherInfo(json);
-        setTempSection(Weather.getTempSection(json.main.temp));
+      .then((weather) => {
+        console.log(weather);
+        setWeatherInfo(weather);
+        if (weather.isDay) {
+          if (weather.weatherType === "Cloud") {
+            setWeatherImage(dayCloudy);
+          } else if (weather.weatherType == "Rain") {
+            setWeatherImage(dayRainy);
+          } else if (weather.weatherType == "Storm") {
+            setWeatherImage(dayStormy);
+          } else if (weather.weatherType == "Snow") {
+            setWeatherImage(daySnowy);
+          } else if (weather.weatherType == "Fog") {
+            setWeatherImage(dayFoggy);
+          } else {
+            setWeatherImage(daySunny);
+          }
+        } else {
+          if (weather.weatherType === "Cloud") {
+            setWeatherImage(nightCloudy);
+          } else if (weather.weatherType == "Rain") {
+            setWeatherImage(nightRainy);
+          } else if (weather.weatherType == "Storm") {
+            setWeatherImage(nightStormy);
+          } else if (weather.weatherType == "Snow") {
+            setWeatherImage(nightSnowy);
+          } else if (weather.weatherType == "Fog") {
+            setWeatherImage(nightFoggy);
+          } else {
+            setWeatherImage(nightSunny);
+          }
+        }
       })
       .catch((err) => {
         console.error(`ERROR: ${err}`);
@@ -52,7 +93,7 @@ function App(props) {
         temperature="75"
         handleCardClick={handleCardClick}
         weatherInfo={weatherInfo}
-        tempSection={tempSection}
+        weatherImage={weatherImage}
       />
       <Footer />
       <ModalWithForm

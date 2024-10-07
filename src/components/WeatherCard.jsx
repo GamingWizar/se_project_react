@@ -1,7 +1,6 @@
 import React from "react";
 import "../blocks/weather.css";
-import sunnyImage from "../assets/sunny.svg";
-import cloudyImage from "../assets/cloudy.svg";
+
 export default class WeatherCard extends React.Component {
   constructor(props) {
     super(props);
@@ -9,9 +8,23 @@ export default class WeatherCard extends React.Component {
 
   render() {
     return (
-      <div className="weather-card">
-        <p className="weather-card__text">{`${this.props.weatherInfo.main.temp}°F`}</p>
-        <img className="weather-card__image" src={cloudyImage} alt="Weather" />
+      <div
+        className={`weather-card ${
+          this.props.weatherInfo.isDay
+            ? "weather-card_color_day"
+            : "weather-card_color_night"
+        } ${
+          this.props.weatherInfo.weatherType != "Clear" &&
+          this.props.weatherInfo.weatherType != "Cloud" &&
+          "weather-card_color_stormy-day"
+        }`}
+      >
+        <p className="weather-card__text">{`${this.props.weatherInfo.temp}°F`}</p>
+        <img
+          className="weather-card__image"
+          src={this.props.weatherImage}
+          alt="Weather"
+        />
       </div>
     );
   }

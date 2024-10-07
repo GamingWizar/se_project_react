@@ -11,14 +11,17 @@ export default class Main extends React.Component {
   render() {
     return (
       <main className="main page__section">
-        <WeatherCard weatherInfo={this.props.weatherInfo} />
+        <WeatherCard
+          weatherInfo={this.props.weatherInfo}
+          weatherImage={this.props.weatherImage}
+        />
         <h2 className="main__card-list-title">
-          {`Today is ${this.props.weatherInfo.main.temp}° F / You may want to wear:`}
+          {`Today is ${this.props.weatherInfo.temp}° F / You may want to wear:`}
         </h2>
         <ul className="main__card-list">
           {defaultClothingItems
             .filter((item) => {
-              return item.weather.includes(this.props.tempSection);
+              return item.weather.includes(this.props.weatherInfo.tempSection);
             })
             .map((clothingItem) => (
               <ItemCard

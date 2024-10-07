@@ -1,12 +1,23 @@
 .weather-card {
   height: 80px;
-  background-color: #00a3ff;
   border-radius: 12px;
   overflow: hidden;
   position: relative;
   display: flex;
   align-items: center;
   margin-bottom: 40px;
+}
+
+.weather-card_color_day {
+  background-color: #00a3ff;
+}
+
+.weather-card_color_stormy-day {
+  background-color: #6ca6c7;
+}
+
+.weather-card_color_night {
+  background-color: #286897;
 }
 
 .weather-card__text {
