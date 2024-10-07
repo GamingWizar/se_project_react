@@ -1,7 +1,6 @@
 import React from "react";
 import WeatherCard from "./WeatherCard";
 import ItemCard from "./ItemCard";
-import "../blocks/Main.css";
 import { defaultClothingItems } from "../utils/constants.js";
 export default class Main extends React.Component {
   constructor(props) {

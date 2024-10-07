@@ -1,5 +1,4 @@
 import React from "react";
-import "../blocks/weather.css";
 
 export default class WeatherCard extends React.Component {
   constructor(props) {

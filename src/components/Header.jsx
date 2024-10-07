@@ -1,5 +1,4 @@
 import React from "react";
-import "../blocks/Header.css";
 import headerlogo from "../assets/logo.svg";
 import profilePicture from "../assets/profile-image.svg";
 import missingProfilePicture from "../assets/profile-image-missing.svg";

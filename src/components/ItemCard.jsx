@@ -1,5 +1,4 @@
 import React from "react";
-import "../blocks/card.css";
 
 export default class ItemCard extends React.Component {
   constructor(props) {

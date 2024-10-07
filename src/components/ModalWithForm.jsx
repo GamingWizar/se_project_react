@@ -1,5 +1,4 @@
 import React from "react";
-import "../blocks/modal.css";
 import closeButtonImage from "../assets/close.svg";
 
 export default class ModalWithForm extends React.Component {

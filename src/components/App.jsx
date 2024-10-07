@@ -1,9 +1,5 @@
 import { useState } from "react";
 import React from "react";
-import "../vendor/fonts.css";
-import "../blocks/App.css";
-import "../blocks/body.css";
-import "../blocks/page.css";
 import { weatherKey, latitude, longitude } from "../utils/constants.js";
 import Header from "./Header";
 import Footer from "./Footer";
