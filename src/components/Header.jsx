@@ -17,7 +17,7 @@ export default class Header extends React.Component {
       <header className="header page__section ">
         <div className="header__content-wrapper">
           <img className="header__logo" src={headerlogo} alt="wtwr" />
-          <p className="header__text header__date">{`${currentDate}, Sharpsburg`}</p>
+          <p className="header__text header__date">{`${currentDate}, ${this.props.weatherInfo.name}`}</p>
         </div>
         <div className="header__content-wrapper">
           <button
@@ -27,7 +27,7 @@ export default class Header extends React.Component {
           >
             + Add clothes
           </button>
-          <p className="header__text header__name">Terrence Tegegne</p>
+          <p className="header__text header__name">Carver Hannasch</p>
           <img
             className="header__profile-picture"
             src={profilePicture}

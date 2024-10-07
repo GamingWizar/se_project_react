@@ -4,20 +4,39 @@ import "../vendor/fonts.css";
 import "../blocks/App.css";
 import "../blocks/body.css";
 import "../blocks/page.css";
+import { weatherKey, latitude, longitude } from "../utils/constants.js";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
 import ModalWithForm from "./ModalWithForm";
 import ItemModal from "./ItemModal";
+import WeatherAPI from "../utils/WeatherAPI";
+
+const Weather = new WeatherAPI(weatherKey, latitude, longitude);
 
 function App(props) {
   const [openedModal, setOpenedModal] = React.useState("");
   const [cardInfo, setCardInfo] = React.useState({});
+  const [weatherInfo, setWeatherInfo] = React.useState({
+    main: { temp: "" },
+    name: "",
+  });
 
   const handleCardClick = (details) => {
     setOpenedModal("item");
     setCardInfo(details);
   };
+
+  React.useEffect(() => {
+    Weather.getWeatherData()
+      .then((json) => {
+        console.log(json);
+        setWeatherInfo(json);
+      })
+      .catch((err) => {
+        console.error(`ERROR: ${err}`);
+      });
+  }, []);
 
   return (
     <>
@@ -25,8 +44,13 @@ function App(props) {
         addClothes={() => {
           setOpenedModal("add-clothes-form");
         }}
+        weatherInfo={weatherInfo}
       />
-      <Main temperature="75" handleCardClick={handleCardClick} />
+      <Main
+        temperature="75"
+        handleCardClick={handleCardClick}
+        weatherInfo={weatherInfo}
+      />
       <Footer />
       <ModalWithForm
         name="add-clothes-form"

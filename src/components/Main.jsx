@@ -11,9 +11,9 @@ export default class Main extends React.Component {
   render() {
     return (
       <main className="main page__section">
-        <WeatherCard />
+        <WeatherCard weatherInfo={this.props.weatherInfo} />
         <h2 className="main__card-list-title">
-          {`Today is ${this.props.temperature}° F / You may want to wear:`}
+          {`Today is ${this.props.weatherInfo.main.temp}° F / You may want to wear:`}
         </h2>
         <ul className="main__card-list">
           {defaultClothingItems.map((clothingItem) => (
