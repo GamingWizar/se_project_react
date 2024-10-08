@@ -37,6 +37,35 @@ function App(props) {
     setCardInfo(details);
   };
 
+  const closeModal = () => {
+    setOpenedModal("");
+  };
+
+  React.useEffect(() => {
+    if (openedModal == "") {
+      return;
+    }
+    const handleEscClose = (evt) => {
+      if (evt.key == "Escape") {
+        closeModal();
+      }
+    };
+
+    const handleClickClose = (evt) => {
+      if (evt.target.classList.contains(`modal_type_${openedModal}`)) {
+        closeModal();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscClose);
+    document.addEventListener("mousedown", handleClickClose);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscClose);
+      document.removeEventListener("mousedown", handleClickClose);
+    };
+  }, [openedModal]);
+
   React.useEffect(() => {
     Weather.getWeatherData()
       .then((weather) => {
@@ -97,9 +126,7 @@ function App(props) {
         buttonText="Add garment"
         title="New garment"
         openedModal={openedModal}
-        onClose={() => {
-          setOpenedModal("");
-        }}
+        onClose={closeModal}
       >
         <label className="modal__form-label" htmlFor="new-garment-name">
           Name
@@ -165,9 +192,7 @@ function App(props) {
       <ItemModal
         details={cardInfo}
         openedModal={openedModal}
-        onClose={() => {
-          setOpenedModal("");
-        }}
+        onClose={closeModal}
       />
     </>
   );

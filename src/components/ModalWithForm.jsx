@@ -6,21 +6,6 @@ export default class ModalWithForm extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    document.addEventListener("keydown", (evt) => {
-      if (evt.key == "Escape") {
-        this.props.onClose();
-      }
-    });
-    const modal = document.querySelector(`.modal_type_${this.props.name}`);
-
-    modal.addEventListener("mousedown", (evt) => {
-      if (evt.target == modal) {
-        this.props.onClose();
-      }
-    });
-  }
-
   render() {
     return (
       <div
