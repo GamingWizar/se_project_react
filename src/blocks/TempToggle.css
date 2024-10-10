@@ -1,0 +1,70 @@
+.temp-toggle {
+  display: flex;
+  justify-content: center;
+}
+
+.temp-toggle__checkbox {
+  appearance: none;
+}
+
+.temp-toggle__switch {
+  position: relative;
+  border: 2px solid #7e7e7e;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 52px;
+  height: 24px;
+  transition: border 0.1s linear;
+}
+
+.temp-toggle__switch-pos {
+  display: block;
+  width: 28px;
+  height: 28px;
+  border-radius: 20px;
+  background-color: #000000;
+  position: absolute;
+  left: -2px;
+  z-index: 0;
+  transition: transform 0.25s ease-out;
+}
+
+.temp-toggle__switch-pos_checked {
+  transform: translate(28px);
+}
+
+.temp-toggle__degree {
+  margin: 0px;
+  font-size: 14px;
+  color: #000000;
+  opacity: 50%;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.temp-toggle__degree_selected {
+  color: #ffffff;
+  opacity: 100%;
+}
+
+.temp-toggle__switch:hover {
+  border-color: #000000;
+}
+
+.temp-toggle__switch:hover .temp-toggle__switch-pos {
+  transform: translate(2px);
+}
+
+.temp-toggle__switch:hover .temp-toggle__switch-pos_checked {
+  transform: translate(26px);
+}
+
+.temp-toggle__switch:hover .temp-toggle__degree {
+  opacity: 100%;
+}

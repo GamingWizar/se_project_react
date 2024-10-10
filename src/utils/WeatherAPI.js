@@ -6,7 +6,7 @@ export default class WeatherAPI {
   }
 
   _getTempSection(temp) {
-    if (temp >= 86) {
+    if (temp >= 80) {
       return "hot";
     } else if (temp >= 66) {
       return "warm";
@@ -59,7 +59,9 @@ export default class WeatherAPI {
 
   _getWeatherInfo(weather) {
     const weatherInfo = {};
-    weatherInfo.temp = weather.main.temp;
+    weatherInfo.temp = {};
+    weatherInfo.temp.F = weather.main.temp;
+    weatherInfo.temp.C = Math.round(((weather.main.temp - 32) * 5) / 9);
     weatherInfo.name = weather.name;
     weatherInfo.tempSection = this._getTempSection(weather.main.temp);
     weatherInfo.weatherType = this._getWeatherType(weather.weather[0]);
