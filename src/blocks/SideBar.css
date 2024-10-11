@@ -1,0 +1,18 @@
+.side-bar {
+  margin-top: 19px;
+}
+
+.side-bar__profile-info {
+  display: flex;
+  align-items: center;
+}
+
+.side-bar__profile-img {
+  height: 56px;
+  margin-right: 16px;
+}
+
+.side-bar__profile-name {
+  margin: 0;
+  font-size: 20px;
+}

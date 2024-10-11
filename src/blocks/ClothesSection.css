@@ -1,0 +1,35 @@
+.clothes-section {
+  margin-top: 35px;
+  max-width: 1024px;
+  width: 100%;
+}
+
+.clothes-section__title-wrapper {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.clothes-section__title {
+  font-size: 20px;
+  margin: 0 20px 0 0;
+}
+
+.clothes-section__add-button {
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+  font-weight: 700;
+  opacity: 60%;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.clothes-section__card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 328px);
+  gap: 20px 20px;
+  justify-content: center;
+}

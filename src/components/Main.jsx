@@ -2,7 +2,6 @@ import React from "react";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext";
 import WeatherCard from "./WeatherCard";
 import ItemCard from "./ItemCard";
-import { defaultClothingItems } from "../utils/constants.js";
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -23,9 +22,11 @@ export default class Main extends React.Component {
           }° ${this.context.currentTemperatureUnit} / You may want to wear:`}
         </h2>
         <ul className="main__card-list">
-          {defaultClothingItems
+          {this.props.clothingItems
             .filter((item) => {
-              return item.weather.includes(this.props.weatherInfo.tempSection);
+              return item.weather
+                .toLowerCase()
+                .includes(this.props.weatherInfo.tempSection);
             })
             .map((clothingItem) => (
               <ItemCard

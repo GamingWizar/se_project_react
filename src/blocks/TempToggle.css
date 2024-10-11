@@ -55,6 +55,7 @@
 
 .temp-toggle__switch:hover {
   border-color: #000000;
+  cursor: pointer;
 }
 
 .temp-toggle__switch:hover .temp-toggle__switch-pos {

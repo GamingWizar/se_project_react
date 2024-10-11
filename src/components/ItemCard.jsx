@@ -13,7 +13,7 @@ export default class ItemCard extends React.Component {
         </div>
         <img
           className="card-item__card-image"
-          src={this.props.details.link}
+          src={this.props.details.imageUrl}
           alt={this.props.details.name}
           onClick={() => {
             this.props.handleCardClick(this.props.details);

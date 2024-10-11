@@ -14,7 +14,11 @@ export default class ModalWithForm extends React.Component {
         }`}
       >
         <div className="modal__container modal__container_type_form">
-          <form className="modal__form" name={this.props.name}>
+          <form
+            className="modal__form"
+            name={this.props.name}
+            onSubmit={this.props.onSubmit}
+          >
             <h3 className="modal__title">{this.props.title}</h3>
             <button
               className="modal__close"

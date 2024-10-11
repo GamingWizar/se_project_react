@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import headerlogo from "../assets/logo.svg";
 import profilePicture from "../assets/profile-image.svg";
 import missingProfilePicture from "../assets/profile-image-missing.svg";
@@ -16,7 +17,9 @@ export default class Header extends React.Component {
     return (
       <header className="header page__section ">
         <div className="header__content-wrapper">
-          <img className="header__logo" src={headerlogo} alt="wtwr" />
+          <Link to="/" className="header__link">
+            <img className="header__logo" src={headerlogo} alt="wtwr" />
+          </Link>
           <p className="header__text header__date">{`${currentDate}, ${this.props.weatherInfo.name}`}</p>
         </div>
         <div className="header__content-wrapper">
@@ -28,12 +31,14 @@ export default class Header extends React.Component {
           >
             + Add clothes
           </button>
-          <p className="header__text header__name">Carver Hannasch</p>
-          <img
-            className="header__profile-picture"
-            src={profilePicture}
-            alt="Terrence Tegegne"
-          />
+          <Link to="/profile" className="header__link">
+            <p className="header__text header__name">Carver Hannasch</p>
+            <img
+              className="header__profile-picture"
+              src={profilePicture}
+              alt="Terrence Tegegne"
+            />
+          </Link>
         </div>
       </header>
     );
