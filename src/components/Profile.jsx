@@ -10,6 +10,7 @@ export default function Profile(props) {
         handleCardClick={props.handleCardClick}
         weatherInfo={props.weatherInfo}
         clothingItems={props.clothingItems}
+        addClothes={props.addClothes}
       />
     </section>
   );

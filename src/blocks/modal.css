@@ -89,6 +89,11 @@
   padding: 0;
 }
 
+.modal__text-button:hover {
+  cursor: pointer;
+  opacity: 60%;
+}
+
 .modal__form-submit {
   padding: 0;
   width: 124px;
@@ -134,9 +139,14 @@
 }
 
 .modal__form-radio-label {
+  width: 80px;
   display: flex;
   margin-bottom: 8px;
   align-items: center;
+}
+
+.modal__form-radio-label {
+  cursor: pointer;
 }
 
 .modal__form-radio-label_last {

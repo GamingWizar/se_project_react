@@ -38,7 +38,7 @@ function App(props) {
     ClothesApi.getClothes()
       .then((res) => {
         console.log(res);
-        setClothingItems(res);
+        setClothingItems(res.toReversed());
       })
       .catch((err) => {
         console.error(`ERROR: ${err}`);
@@ -51,9 +51,9 @@ function App(props) {
       imageUrl: clothesImg,
       weather: clothesWeather,
     })
-      .then(() => {
+      .then((res) => {
         closeModal();
-        updateClothingItems();
+        setClothingItems([res, ...clothingItems]);
       })
       .catch((err) => {
         console.error(`ERROR: ${err}`);
@@ -70,8 +70,12 @@ function App(props) {
     ClothesApi.deleteClothingItem(cardToDelete._id)
       .then((res) => {
         closeModal();
+        setClothingItems(
+          clothingItems.filter((item) => {
+            return item._id != cardToDelete._id;
+          })
+        );
         setCardToDelete({});
-        updateClothingItems();
       })
       .catch((err) => {
         console.error(`ERROR: ${err}`);
@@ -178,60 +182,61 @@ function App(props) {
   }, []);
 
   return (
-    <>
-      <CurrentTemperatureUnitContext.Provider
-        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-      >
-        <Header
-          clothingItems={clothingItems}
-          addClothes={() => {
-            setOpenedModal("add-clothes-form");
-          }}
-          weatherInfo={weatherInfo}
+    <CurrentTemperatureUnitContext.Provider
+      value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+    >
+      <Header
+        clothingItems={clothingItems}
+        addClothes={() => {
+          setOpenedModal("add-clothes-form");
+        }}
+        weatherInfo={weatherInfo}
+      />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Main
+              clothingItems={clothingItems}
+              handleCardClick={handleCardClick}
+              weatherInfo={weatherInfo}
+              weatherImage={weatherImage}
+            />
+          }
         />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Main
-                clothingItems={clothingItems}
-                handleCardClick={handleCardClick}
-                weatherInfo={weatherInfo}
-                weatherImage={weatherImage}
-              />
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <Profile
-                handleCardClick={handleCardClick}
-                weatherInfo={weatherInfo}
-                clothingItems={clothingItems}
-              />
-            }
-          />
-        </Routes>
-        <Footer />
-        <AddItemModal
-          openedModal={openedModal}
-          onClose={closeModal}
-          onAddItem={handleAddItemSubmit}
+        <Route
+          path="/profile"
+          element={
+            <Profile
+              handleCardClick={handleCardClick}
+              weatherInfo={weatherInfo}
+              clothingItems={clothingItems}
+              addClothes={() => {
+                setOpenedModal("add-clothes-form");
+              }}
+            />
+          }
         />
-        <ItemModal
-          details={cardInfo}
-          openedModal={openedModal}
-          onClose={closeModal}
-          onDelete={deleteCard}
-        />
-        <ConfirmDeleteModal
-          openedModal={openedModal}
-          onClose={closeModal}
-          confirmDelete={handleConfirmDelete}
-          cancelDelete={handleCancelDelete}
-        />
-      </CurrentTemperatureUnitContext.Provider>
-    </>
+      </Routes>
+      <Footer />
+      <AddItemModal
+        openedModal={openedModal}
+        onClose={closeModal}
+        onAddItem={handleAddItemSubmit}
+      />
+      <ItemModal
+        details={cardInfo}
+        openedModal={openedModal}
+        onClose={closeModal}
+        onDelete={deleteCard}
+      />
+      <ConfirmDeleteModal
+        openedModal={openedModal}
+        onClose={closeModal}
+        confirmDelete={handleConfirmDelete}
+        cancelDelete={handleCancelDelete}
+      />
+    </CurrentTemperatureUnitContext.Provider>
   );
 }
 
