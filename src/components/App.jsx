@@ -7,6 +7,8 @@ import Footer from "./Footer";
 import ConfirmDeleteModal from "./ConfirmDeleteModal.jsx";
 import ItemModal from "./ItemModal";
 import AddItemModal from "./AddItemModal.jsx";
+import RegisterModal from "./RegisterModal.jsx";
+import LoginModal from "./LoginModal.jsx";
 import WeatherAPI from "../utils/WeatherAPI";
 import Api from "../utils/api.js";
 import { weatherKey, latitude, longitude } from "../utils/constants.js";
@@ -38,7 +40,7 @@ function App(props) {
     ClothesApi.getClothes()
       .then((res) => {
         console.log(res);
-        setClothingItems(res.toReversed());
+        setClothingItems(res.data.toReversed());
       })
       .catch((err) => {
         console.error(`ERROR: ${err}`);
@@ -87,7 +89,7 @@ function App(props) {
     setCardToDelete({});
   };
 
-  const [openedModal, setOpenedModal] = React.useState("");
+  const [openedModal, setOpenedModal] = React.useState("log-in-form");
   const [cardInfo, setCardInfo] = React.useState({});
   const [weatherInfo, setWeatherInfo] = React.useState({
     temp: "",
@@ -106,6 +108,14 @@ function App(props) {
     setOpenedModal("");
   };
 
+  const swapAuthenticationModal = () => {
+    if (openedModal === "log-in-form") {
+      setOpenedModal("sign-up-form");
+    } else {
+      setOpenedModal("log-in-form");
+    }
+  };
+
   const [currentTemperatureUnit, setCurrentTemperatureUnit] =
     React.useState("F");
 
@@ -113,6 +123,14 @@ function App(props) {
     currentTemperatureUnit === "F"
       ? setCurrentTemperatureUnit("C")
       : setCurrentTemperatureUnit("F");
+  };
+
+  const handleRegisterSubmit = (data) => {
+    console.log(data);
+  };
+
+  const handleLogInSubmit = (data) => {
+    console.log(data);
   };
 
   React.useEffect(() => {
@@ -235,6 +253,18 @@ function App(props) {
         onClose={closeModal}
         confirmDelete={handleConfirmDelete}
         cancelDelete={handleCancelDelete}
+      />
+      <RegisterModal
+        openedModal={openedModal}
+        onClose={closeModal}
+        onSignUp={handleRegisterSubmit}
+        onOr={swapAuthenticationModal}
+      />
+      <LoginModal
+        openedModal={openedModal}
+        onClose={closeModal}
+        onLogIn={handleLogInSubmit}
+        onOr={swapAuthenticationModal}
       />
     </CurrentTemperatureUnitContext.Provider>
   );

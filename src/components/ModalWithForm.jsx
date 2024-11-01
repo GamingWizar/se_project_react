@@ -18,6 +18,7 @@ export default class ModalWithForm extends React.Component {
             className="modal__form"
             name={this.props.name}
             onSubmit={this.props.onSubmit}
+            noValidate
           >
             <h3 className="modal__title">{this.props.title}</h3>
             <button
@@ -32,9 +33,14 @@ export default class ModalWithForm extends React.Component {
               />
             </button>
             {this.props.children}
-            <button className="modal__form-submit">
-              {this.props.buttonText}
-            </button>
+            <div className="modal__form-submit-buttons-wrapper">
+              <button
+                className={`modal__form-submit modal__form-submit_type_${this.props.buttonType}`}
+              >
+                {this.props.buttonText}
+              </button>
+              {this.props.additionalButton ? this.props.additionalButton : ""}
+            </div>
           </form>
         </div>
       </div>

@@ -27,6 +27,7 @@ export default function AddItemModal(props) {
     <ModalWithForm
       name="add-clothes-form"
       buttonText="Add garment"
+      buttonType="add-clothes"
       title="New garment"
       openedModal={props.openedModal}
       onClose={props.onClose}

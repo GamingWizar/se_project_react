@@ -87,11 +87,16 @@
   font-size: 20px;
   font-weight: 700;
   padding: 0;
+  line-height: 20px;
 }
 
 .modal__text-button:hover {
   cursor: pointer;
   opacity: 60%;
+}
+
+.modal__form-submit-buttons-wrapper {
+  display: flex;
 }
 
 .modal__form-submit {
@@ -111,6 +116,20 @@
 .modal__form-submit:hover {
   opacity: 60%;
   cursor: pointer;
+}
+
+.modal__form-submit_type_sign-up {
+  width: 86px;
+}
+
+.modal__form-submit_type_log-in {
+  width: 73px;
+}
+
+.modal__form-alt-submit {
+  width: 80px;
+  color: #00000080;
+  font-size: 16px;
 }
 
 .modal__form-label {
