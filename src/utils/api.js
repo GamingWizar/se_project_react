@@ -25,7 +25,7 @@ export default class Api {
   addClothingItem({ name, imageUrl, weather }, jwt) {
     return this._request("/items", {
       method: "POST",
-      headers: { ...this._headers, authorization: jwt },
+      headers: { ...this._headers, authorization: `Bearer ${jwt}` },
       body: JSON.stringify({
         name: name,
         imageUrl: imageUrl,
@@ -37,7 +37,7 @@ export default class Api {
   deleteClothingItem(id, jwt) {
     return this._request(`/items/${id}`, {
       method: "DELETE",
-      headers: { ...this._headers, authorization: jwt },
+      headers: { ...this._headers, authorization: `Bearer ${jwt}` },
     });
   }
 }

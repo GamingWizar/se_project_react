@@ -8,7 +8,9 @@ export default class Auth {
     if (res.ok) {
       return res.json();
     } else {
-      return Promise.reject(res.status);
+      return res.json().then((json) => {
+        return Promise.reject(`ERROR: ${res.status}: ${json.message}`);
+      });
     }
   }
 
@@ -23,6 +25,8 @@ export default class Auth {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({ name, avatar, email, password }),
+    }).then((res) => {
+      return this.signIn({ email, password });
     });
   }
 

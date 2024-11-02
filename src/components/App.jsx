@@ -13,9 +13,10 @@ import ProtectedRoute from "./ProtectedRoute.jsx";
 import WeatherAPI from "../utils/WeatherAPI";
 import Api from "../utils/api.js";
 import Auth from "../utils/auth.js";
-import { setToken, getToken } from "../utils/token.js";
+import { setToken, getToken, removeToken } from "../utils/token.js";
 import { weatherKey, latitude, longitude } from "../utils/constants.js";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext.js";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 import daySunny from "../assets/sunny.svg";
 import dayCloudy from "../assets/cloudy.svg";
@@ -36,6 +37,12 @@ const AuthApi = new Auth("http://localhost:3001");
 
 function App(props) {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({
+    name: "",
+    avatar: "",
+    email: "",
+    _id: "",
+  });
 
   const [clothingItems, setClothingItems] = React.useState([
     { _id: 0, name: "", weather: "", link: "" },
@@ -64,7 +71,7 @@ function App(props) {
     )
       .then((res) => {
         closeModal();
-        setClothingItems([res, ...clothingItems]);
+        setClothingItems([res.data, ...clothingItems]);
       })
       .catch((err) => {
         console.error(`ERROR: ${err}`);
@@ -98,7 +105,7 @@ function App(props) {
     setCardToDelete({});
   };
 
-  const [openedModal, setOpenedModal] = React.useState("sign-up-form");
+  const [openedModal, setOpenedModal] = React.useState("");
   const [cardInfo, setCardInfo] = React.useState({});
   const [weatherInfo, setWeatherInfo] = React.useState({
     temp: "",
@@ -134,20 +141,29 @@ function App(props) {
       : setCurrentTemperatureUnit("F");
   };
 
-  const signIn = (token) => {
-    setToken(token);
-    setIsLoggedIn(true);
-    setOpenedModal("");
+  const saveUserInfo = (token) => {
+    AuthApi.getUserInfo(token)
+      .then((res) => {
+        const { name, avatar, email, _id } = res.data;
+        setCurrentUser({ name, avatar, email, _id });
+        setToken(token);
+        setIsLoggedIn(true);
+        setOpenedModal("");
+      })
+      .catch((err) => {
+        console.error(err);
+        removeToken();
+      });
   };
 
   const handleRegisterSubmit = (data) => {
     console.log("Registering");
     AuthApi.signUp(data)
       .then((res) => {
-        signIn(res.token);
+        saveUserInfo(res.token);
       })
       .catch((err) => {
-        console.error(`ERROR: ${err}`);
+        console.error(err);
       });
   };
 
@@ -155,10 +171,10 @@ function App(props) {
     console.log("Logging In");
     AuthApi.signIn(data)
       .then((res) => {
-        signIn(res.token);
+        saveUserInfo(res.token);
       })
       .catch((err) => {
-        console.error(`ERROR: ${err}`);
+        console.error(err);
       });
   };
 
@@ -229,86 +245,87 @@ function App(props) {
   }, []);
 
   React.useEffect(() => {
+    console.log("Page starting");
     let jwt = getToken();
     if (!jwt) {
+      console.log("Token not found :(");
       return;
     }
-    AuthApi.getUserInfo(jwt).then(() => {
-      console.log("Valid Token found");
-      // Sign user in
-    });
+    console.log("Token found :)");
+    saveUserInfo(jwt);
   }, []);
 
   return (
-    <CurrentTemperatureUnitContext.Provider
-      value={{ currentTemperatureUnit, handleToggleSwitchChange }}
-    >
-      <Header
-        clothingItems={clothingItems}
-        addClothes={() => {
-          setOpenedModal("add-clothes-form");
-        }}
-        weatherInfo={weatherInfo}
-      />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Main
-              clothingItems={clothingItems}
-              handleCardClick={handleCardClick}
-              weatherInfo={weatherInfo}
-              weatherImage={weatherImage}
-            />
-          }
+    <CurrentUserContext.Provider value={{ currentUser }}>
+      <CurrentTemperatureUnitContext.Provider
+        value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+      >
+        <Header
+          isLoggedIn={isLoggedIn}
+          clothingItems={clothingItems}
+          setOpenedModal={setOpenedModal}
+          weatherInfo={weatherInfo}
         />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <Profile
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main
+                clothingItems={clothingItems}
                 handleCardClick={handleCardClick}
                 weatherInfo={weatherInfo}
-                clothingItems={clothingItems}
-                addClothes={() => {
-                  setOpenedModal("add-clothes-form");
-                }}
+                weatherImage={weatherImage}
               />
-            </ProtectedRoute>
-          }
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute isLoggedIn={isLoggedIn}>
+                <Profile
+                  handleCardClick={handleCardClick}
+                  weatherInfo={weatherInfo}
+                  clothingItems={clothingItems}
+                  addClothes={() => {
+                    setOpenedModal("add-clothes-form");
+                  }}
+                />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+        <Footer />
+        <AddItemModal
+          openedModal={openedModal}
+          onClose={closeModal}
+          onAddItem={handleAddItemSubmit}
         />
-      </Routes>
-      <Footer />
-      <AddItemModal
-        openedModal={openedModal}
-        onClose={closeModal}
-        onAddItem={handleAddItemSubmit}
-      />
-      <ItemModal
-        details={cardInfo}
-        openedModal={openedModal}
-        onClose={closeModal}
-        onDelete={deleteCard}
-      />
-      <ConfirmDeleteModal
-        openedModal={openedModal}
-        onClose={closeModal}
-        confirmDelete={handleConfirmDelete}
-        cancelDelete={handleCancelDelete}
-      />
-      <RegisterModal
-        openedModal={openedModal}
-        onClose={closeModal}
-        onSignUp={handleRegisterSubmit}
-        onOr={swapAuthenticationModal}
-      />
-      <LoginModal
-        openedModal={openedModal}
-        onClose={closeModal}
-        onLogIn={handleLogInSubmit}
-        onOr={swapAuthenticationModal}
-      />
-    </CurrentTemperatureUnitContext.Provider>
+        <ItemModal
+          details={cardInfo}
+          openedModal={openedModal}
+          onClose={closeModal}
+          onDelete={deleteCard}
+        />
+        <ConfirmDeleteModal
+          openedModal={openedModal}
+          onClose={closeModal}
+          confirmDelete={handleConfirmDelete}
+          cancelDelete={handleCancelDelete}
+        />
+        <RegisterModal
+          openedModal={openedModal}
+          onClose={closeModal}
+          onSignUp={handleRegisterSubmit}
+          onOr={swapAuthenticationModal}
+        />
+        <LoginModal
+          openedModal={openedModal}
+          onClose={closeModal}
+          onLogIn={handleLogInSubmit}
+          onOr={swapAuthenticationModal}
+        />
+      </CurrentTemperatureUnitContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

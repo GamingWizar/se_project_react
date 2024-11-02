@@ -26,7 +26,7 @@
   margin: 0;
 }
 
-.header__add-clothes {
+.header__text-button {
   font-family: "Cabinet Grotesk";
   font-weight: 700;
   font-size: 20px;
@@ -34,12 +34,19 @@
   background: none;
   border: none;
   padding: 0;
+}
+
+.header__text-button:hover {
+  opacity: 60%;
+  cursor: pointer;
+}
+
+.header__add-clothes {
   margin-left: 20px;
 }
 
-.header__add-clothes:hover {
-  opacity: 60%;
-  cursor: pointer;
+.header__sign-up {
+  margin: 0 20px;
 }
 
 .header__name {
@@ -49,5 +56,6 @@
 .header__profile-picture {
   margin-left: 12px;
   height: 40px;
+  width: 40px;
   border-radius: 50%;
 }

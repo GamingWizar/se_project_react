@@ -252,6 +252,14 @@
   color: #ff4d00;
 }
 
+.modal__delete-button_hidden {
+  display: none;
+}
+
+.modal__delete-button_visible {
+  display: block;
+}
+
 .modal__delete-text-wrapper {
   display: flex;
   flex-direction: column;

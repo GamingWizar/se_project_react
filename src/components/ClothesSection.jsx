@@ -1,7 +1,9 @@
 import React from "react";
 import ItemCard from "./ItemCard";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 export default function ClothesSection(props) {
+  const { currentUser } = React.useContext(CurrentUserContext);
   return (
     <div className="clothes-section">
       <div className="clothes-section__title-wrapper">
@@ -14,13 +16,17 @@ export default function ClothesSection(props) {
         </button>
       </div>
       <ul className="clothes-section__card-list">
-        {props.clothingItems.map((clothingItem) => (
-          <ItemCard
-            details={clothingItem}
-            key={clothingItem._id}
-            handleCardClick={props.handleCardClick}
-          />
-        ))}
+        {props.clothingItems
+          .filter((item) => {
+            return item.owner === currentUser._id;
+          })
+          .map((clothingItem) => (
+            <ItemCard
+              details={clothingItem}
+              key={clothingItem._id}
+              handleCardClick={props.handleCardClick}
+            />
+          ))}
       </ul>
     </div>
   );
