@@ -19,13 +19,13 @@ export default class Api {
   }
 
   getClothes() {
-    return this._request("/items");
+    return this._request("/items", { method: "GET", headers: this._headers });
   }
 
-  addClothingItem({ name, imageUrl, weather }) {
+  addClothingItem({ name, imageUrl, weather }, jwt) {
     return this._request("/items", {
       method: "POST",
-      headers: this._headers,
+      headers: { ...this._headers, authorization: jwt },
       body: JSON.stringify({
         name: name,
         imageUrl: imageUrl,
@@ -34,9 +34,10 @@ export default class Api {
     });
   }
 
-  deleteClothingItem(id) {
+  deleteClothingItem(id, jwt) {
     return this._request(`/items/${id}`, {
       method: "DELETE",
+      headers: { ...this._headers, authorization: jwt },
     });
   }
 }

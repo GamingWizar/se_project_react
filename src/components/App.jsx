@@ -9,8 +9,11 @@ import ItemModal from "./ItemModal";
 import AddItemModal from "./AddItemModal.jsx";
 import RegisterModal from "./RegisterModal.jsx";
 import LoginModal from "./LoginModal.jsx";
+import ProtectedRoute from "./ProtectedRoute.jsx";
 import WeatherAPI from "../utils/WeatherAPI";
 import Api from "../utils/api.js";
+import Auth from "../utils/auth.js";
+import { setToken, getToken } from "../utils/token.js";
 import { weatherKey, latitude, longitude } from "../utils/constants.js";
 import { CurrentTemperatureUnitContext } from "../contexts/CurrentTemperatureUnitContext.js";
 
@@ -29,8 +32,11 @@ import nightFoggy from "../assets/night_foggy.svg";
 
 const Weather = new WeatherAPI(weatherKey, latitude, longitude);
 const ClothesApi = new Api("http://localhost:3001");
+const AuthApi = new Auth("http://localhost:3001");
 
 function App(props) {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+
   const [clothingItems, setClothingItems] = React.useState([
     { _id: 0, name: "", weather: "", link: "" },
     { _id: 1, name: "", weather: "", link: "" },
@@ -48,11 +54,14 @@ function App(props) {
   };
 
   const handleAddItemSubmit = (clothesName, clothesImg, clothesWeather) => {
-    ClothesApi.addClothingItem({
-      name: clothesName,
-      imageUrl: clothesImg,
-      weather: clothesWeather,
-    })
+    ClothesApi.addClothingItem(
+      {
+        name: clothesName,
+        imageUrl: clothesImg,
+        weather: clothesWeather,
+      },
+      getToken()
+    )
       .then((res) => {
         closeModal();
         setClothingItems([res, ...clothingItems]);
@@ -69,7 +78,7 @@ function App(props) {
   };
 
   const handleConfirmDelete = () => {
-    ClothesApi.deleteClothingItem(cardToDelete._id)
+    ClothesApi.deleteClothingItem(cardToDelete._id, getToken())
       .then((res) => {
         closeModal();
         setClothingItems(
@@ -89,7 +98,7 @@ function App(props) {
     setCardToDelete({});
   };
 
-  const [openedModal, setOpenedModal] = React.useState("log-in-form");
+  const [openedModal, setOpenedModal] = React.useState("sign-up-form");
   const [cardInfo, setCardInfo] = React.useState({});
   const [weatherInfo, setWeatherInfo] = React.useState({
     temp: "",
@@ -125,12 +134,32 @@ function App(props) {
       : setCurrentTemperatureUnit("F");
   };
 
+  const signIn = (token) => {
+    setToken(token);
+    setIsLoggedIn(true);
+    setOpenedModal("");
+  };
+
   const handleRegisterSubmit = (data) => {
-    console.log(data);
+    console.log("Registering");
+    AuthApi.signUp(data)
+      .then((res) => {
+        signIn(res.token);
+      })
+      .catch((err) => {
+        console.error(`ERROR: ${err}`);
+      });
   };
 
   const handleLogInSubmit = (data) => {
-    console.log(data);
+    console.log("Logging In");
+    AuthApi.signIn(data)
+      .then((res) => {
+        signIn(res.token);
+      })
+      .catch((err) => {
+        console.error(`ERROR: ${err}`);
+      });
   };
 
   React.useEffect(() => {
@@ -199,6 +228,17 @@ function App(props) {
     updateClothingItems();
   }, []);
 
+  React.useEffect(() => {
+    let jwt = getToken();
+    if (!jwt) {
+      return;
+    }
+    AuthApi.getUserInfo(jwt).then(() => {
+      console.log("Valid Token found");
+      // Sign user in
+    });
+  }, []);
+
   return (
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
@@ -225,14 +265,16 @@ function App(props) {
         <Route
           path="/profile"
           element={
-            <Profile
-              handleCardClick={handleCardClick}
-              weatherInfo={weatherInfo}
-              clothingItems={clothingItems}
-              addClothes={() => {
-                setOpenedModal("add-clothes-form");
-              }}
-            />
+            <ProtectedRoute isLoggedIn={isLoggedIn}>
+              <Profile
+                handleCardClick={handleCardClick}
+                weatherInfo={weatherInfo}
+                clothingItems={clothingItems}
+                addClothes={() => {
+                  setOpenedModal("add-clothes-form");
+                }}
+              />
+            </ProtectedRoute>
           }
         />
       </Routes>
