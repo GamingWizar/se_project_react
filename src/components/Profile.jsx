@@ -5,12 +5,15 @@ import ClothesSection from "./ClothesSection";
 export default function Profile(props) {
   return (
     <section className="page__section profile">
-      <SideBar />
+      <SideBar
+        setOpenedModal={props.setOpenedModal}
+        openEditProfile={props.openEditProfile}
+      />
       <ClothesSection
         handleCardClick={props.handleCardClick}
         weatherInfo={props.weatherInfo}
         clothingItems={props.clothingItems}
-        addClothes={props.addClothes}
+        setOpenedModal={props.setOpenedModal}
       />
     </section>
   );

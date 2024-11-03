@@ -9,6 +9,7 @@ import ItemModal from "./ItemModal";
 import AddItemModal from "./AddItemModal.jsx";
 import RegisterModal from "./RegisterModal.jsx";
 import LoginModal from "./LoginModal.jsx";
+import EditProfileModal from "./EditProfileModal.jsx";
 import ProtectedRoute from "./ProtectedRoute.jsx";
 import WeatherAPI from "../utils/WeatherAPI";
 import Api from "../utils/api.js";
@@ -148,7 +149,7 @@ function App(props) {
         setCurrentUser({ name, avatar, email, _id });
         setToken(token);
         setIsLoggedIn(true);
-        setOpenedModal("");
+        closeModal();
       })
       .catch((err) => {
         console.error(err);
@@ -176,6 +177,31 @@ function App(props) {
       .catch((err) => {
         console.error(err);
       });
+  };
+
+  const [profileEditInputData, setProfileEditInputData] = React.useState({
+    name: "",
+    avatar: "",
+  });
+
+  const handleEditProfileSubmit = () => {
+    AuthApi.updateUserInfo(profileEditInputData, getToken())
+      .then((res) => {
+        const { name, avatar, email, _id } = res.data;
+        setCurrentUser({ name, avatar, email, _id });
+        closeModal();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  const openEditProfile = () => {
+    setOpenedModal("edit-profile-form");
+    setProfileEditInputData({
+      name: currentUser.name,
+      avatar: currentUser.avatar,
+    });
   };
 
   React.useEffect(() => {
@@ -286,9 +312,8 @@ function App(props) {
                   handleCardClick={handleCardClick}
                   weatherInfo={weatherInfo}
                   clothingItems={clothingItems}
-                  addClothes={() => {
-                    setOpenedModal("add-clothes-form");
-                  }}
+                  setOpenedModal={setOpenedModal}
+                  openEditProfile={openEditProfile}
                 />
               </ProtectedRoute>
             }
@@ -323,6 +348,13 @@ function App(props) {
           onClose={closeModal}
           onLogIn={handleLogInSubmit}
           onOr={swapAuthenticationModal}
+        />
+        <EditProfileModal
+          openedModal={openedModal}
+          onClose={closeModal}
+          profileEditInputData={profileEditInputData}
+          setProfileEditInputData={setProfileEditInputData}
+          handleEditProfileSubmit={handleEditProfileSubmit}
         />
       </CurrentTemperatureUnitContext.Provider>
     </CurrentUserContext.Provider>

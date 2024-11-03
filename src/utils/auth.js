@@ -44,4 +44,12 @@ export default class Auth {
       headers: { ...this._headers, authorization: `Bearer ${jwt}` },
     });
   }
+
+  updateUserInfo({ name, avatar }, jwt) {
+    return this._request("/users/me", {
+      method: "PATCH",
+      headers: { ...this._headers, authorization: `Bearer ${jwt}` },
+      body: JSON.stringify({ name, avatar }),
+    });
+  }
 }

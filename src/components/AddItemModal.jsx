@@ -33,26 +33,24 @@ export default function AddItemModal(props) {
       onClose={props.onClose}
       onSubmit={handleSubmit}
     >
-      <label className="modal__form-label" htmlFor="new-garment-name">
+      <label className="modal__form-label">
         Name
+        <input
+          className="modal__form-input"
+          placeholder="Name"
+          onChange={handleNameChange}
+          value={name}
+        />
       </label>
-      <input
-        className="modal__form-input"
-        id="new-garment-name"
-        placeholder="Name"
-        onChange={handleNameChange}
-        value={name}
-      />
-      <label className="modal__form-label" htmlFor="new-garment-image">
+      <label className="modal__form-label">
         Image
+        <input
+          className="modal__form-input"
+          placeholder="Image URL"
+          onChange={handleImgChange}
+          value={imageUrl}
+        />
       </label>
-      <input
-        className="modal__form-input"
-        id="new-garment-image"
-        placeholder="Image URL"
-        onChange={handleImgChange}
-        value={imageUrl}
-      />
       <div className="modal__form-radio-inputs">
         <h4 className="modal__title modal__radio-inputs-title">
           Select the weather type:

@@ -2,7 +2,7 @@ import React from "react";
 import profilePicture from "../assets/profile-image.svg";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function SideBar(props) {
+export default function SideBar({ openEditProfile }) {
   const { currentUser } = React.useContext(CurrentUserContext);
   return (
     <div className="side-bar">
@@ -14,6 +14,16 @@ export default function SideBar(props) {
         />
         <p className="side-bar__profile-name">{currentUser.name}</p>
       </div>
+      <button
+        className="side-bar__text-button side-bar__change-profile"
+        type="button"
+        onClick={openEditProfile}
+      >
+        Change profile data
+      </button>
+      <button className="side-bar__text-button side-bar__log-out">
+        Log out
+      </button>
     </div>
   );
 }

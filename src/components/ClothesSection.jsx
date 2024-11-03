@@ -10,7 +10,9 @@ export default function ClothesSection(props) {
         <h3 className="clothes-section__title">Your Items</h3>
         <button
           className="clothes-section__add-button"
-          onClick={props.addClothes}
+          onClick={() => {
+            props.setOpenedModal("add-clothes-form");
+          }}
         >
           + Add new
         </button>
