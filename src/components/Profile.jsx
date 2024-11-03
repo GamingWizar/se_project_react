@@ -8,6 +8,7 @@ export default function Profile(props) {
       <SideBar
         setOpenedModal={props.setOpenedModal}
         openEditProfile={props.openEditProfile}
+        signOut={props.signOut}
       />
       <ClothesSection
         handleCardClick={props.handleCardClick}

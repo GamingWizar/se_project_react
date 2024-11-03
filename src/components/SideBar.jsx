@@ -2,7 +2,7 @@ import React from "react";
 import profilePicture from "../assets/profile-image.svg";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-export default function SideBar({ openEditProfile }) {
+export default function SideBar({ openEditProfile, signOut }) {
   const { currentUser } = React.useContext(CurrentUserContext);
   return (
     <div className="side-bar">
@@ -21,7 +21,11 @@ export default function SideBar({ openEditProfile }) {
       >
         Change profile data
       </button>
-      <button className="side-bar__text-button side-bar__log-out">
+      <button
+        className="side-bar__text-button side-bar__log-out"
+        type="button"
+        onClick={signOut}
+      >
         Log out
       </button>
     </div>

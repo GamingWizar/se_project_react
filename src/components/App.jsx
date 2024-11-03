@@ -205,6 +205,17 @@ function App(props) {
       });
   };
 
+  const handleSignOut = () => {
+    removeToken();
+    setIsLoggedIn(false);
+    setCurrentUser({
+      name: "",
+      avatar: "",
+      email: "",
+      _id: "",
+    });
+  };
+
   const [profileEditInputData, setProfileEditInputData] = React.useState({
     name: "",
     avatar: "",
@@ -342,6 +353,7 @@ function App(props) {
                   clothingItems={clothingItems}
                   setOpenedModal={setOpenedModal}
                   openEditProfile={openEditProfile}
+                  signOut={handleSignOut}
                 />
               </ProtectedRoute>
             }
