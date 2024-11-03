@@ -13,10 +13,10 @@ This is the forth project of the Web Development program at Triple Ten. It was c
 - React
 - API intergration
 
-## Plan on improving the project
-
-Add way of adding cards and changing temperature units
-
 ## Link to website
 
 https://gamingwizar.github.io/se_project_react/
+
+## Link to Backend Repo
+
+https://github.com/GamingWizar/se_project_express

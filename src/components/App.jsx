@@ -52,34 +52,26 @@ function App(props) {
 
   const handleCardLike = (id, isLiked) => {
     const token = getToken();
-    // Check if this card is not currently liked
     !isLiked
-      ? // if so, send a request to add the user's id to the card's likes array
-        ClothesApi
-          // the first argument is the card's id
-          .addCardLike(id, token)
+      ? ClothesApi.addCardLike(id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === id ? updatedCard.data : item))
             );
           })
-          .catch((err) => console.log(err))
-      : // if not, send a request to remove the user's id from the card's likes array
-        ClothesApi
-          // the first argument is the card's id
-          .removeCardLike(id, token)
+          .catch((err) => console.error(err))
+      : ClothesApi.removeCardLike(id, token)
           .then((updatedCard) => {
             setClothingItems((cards) =>
               cards.map((item) => (item._id === id ? updatedCard.data : item))
             );
           })
-          .catch((err) => console.log(err));
+          .catch((err) => console.error(err));
   };
 
   const updateClothingItems = () => {
     ClothesApi.getClothes()
       .then((res) => {
-        console.log(res);
         setClothingItems(res.data.toReversed());
       })
       .catch((err) => {
@@ -184,7 +176,6 @@ function App(props) {
   };
 
   const handleRegisterSubmit = (data) => {
-    console.log("Registering");
     AuthApi.signUp(data)
       .then((res) => {
         saveUserInfo(res.token);
@@ -195,7 +186,6 @@ function App(props) {
   };
 
   const handleLogInSubmit = (data) => {
-    console.log("Logging In");
     AuthApi.signIn(data)
       .then((res) => {
         saveUserInfo(res.token);
@@ -269,7 +259,6 @@ function App(props) {
   React.useEffect(() => {
     Weather.getWeatherData()
       .then((weather) => {
-        console.log(weather);
         setWeatherInfo(weather);
         if (weather.isDay) {
           if (weather.weatherType === "Cloud") {
@@ -308,13 +297,10 @@ function App(props) {
   }, []);
 
   React.useEffect(() => {
-    console.log("Page starting");
     let jwt = getToken();
     if (!jwt) {
-      console.log("Token not found :(");
       return;
     }
-    console.log("Token found :)");
     saveUserInfo(jwt);
   }, []);
 
