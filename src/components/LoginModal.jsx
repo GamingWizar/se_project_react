@@ -37,30 +37,29 @@ export default function LoginModal(props) {
         </button>
       }
     >
-      <label className="modal__form-label" htmlFor="log-in-email">
+      <label className="modal__form-label">
         Email
+        <input
+          className="modal__form-input"
+          name="email"
+          placeholder="Email"
+          type="email"
+          onChange={handleChange}
+          value={inputData.email}
+        />
       </label>
-      <input
-        className="modal__form-input"
-        id="log-in-email"
-        name="email"
-        placeholder="Email"
-        type="email"
-        onChange={handleChange}
-        value={inputData.email}
-      />
-      <label className="modal__form-label" htmlFor="log-in-password">
+
+      <label className="modal__form-label">
         Password
+        <input
+          className="modal__form-input"
+          name="password"
+          placeholder="Password"
+          type="password"
+          onChange={handleChange}
+          value={inputData.password}
+        />
       </label>
-      <input
-        className="modal__form-input"
-        id="log-in-password"
-        name="password"
-        placeholder="Password"
-        type="password"
-        onChange={handleChange}
-        value={inputData.password}
-      />
     </ModalWithForm>
   );
 }

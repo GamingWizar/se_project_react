@@ -39,52 +39,51 @@ export default function RegisterModal(props) {
         </button>
       }
     >
-      <label className="modal__form-label" htmlFor="register-email">
+      <label className="modal__form-label">
         Email
+        <input
+          className="modal__form-input"
+          name="email"
+          placeholder="Email"
+          type="email"
+          onChange={handleChange}
+          value={inputData.email}
+        />
       </label>
-      <input
-        className="modal__form-input"
-        id="register-email"
-        name="email"
-        placeholder="Email"
-        type="email"
-        onChange={handleChange}
-        value={inputData.email}
-      />
-      <label className="modal__form-label" htmlFor="register-password">
+
+      <label className="modal__form-label">
         Password
+        <input
+          className="modal__form-input"
+          name="password"
+          placeholder="Password"
+          type="password"
+          onChange={handleChange}
+          value={inputData.password}
+        />
       </label>
-      <input
-        className="modal__form-input"
-        id="register-password"
-        name="password"
-        placeholder="Password"
-        type="password"
-        onChange={handleChange}
-        value={inputData.password}
-      />
-      <label className="modal__form-label" htmlFor="register-name">
+
+      <label className="modal__form-label">
         Name
+        <input
+          className="modal__form-input"
+          name="name"
+          placeholder="Name"
+          onChange={handleChange}
+          value={inputData.name}
+        />
       </label>
-      <input
-        className="modal__form-input"
-        id="register-name"
-        name="name"
-        placeholder="Name"
-        onChange={handleChange}
-        value={inputData.name}
-      />
-      <label className="modal__form-label" htmlFor="register-avatar">
+
+      <label className="modal__form-label">
         Avatar URL
+        <input
+          className="modal__form-input"
+          name="avatar"
+          placeholder="Avatar URL"
+          onChange={handleChange}
+          value={inputData.avatar}
+        />
       </label>
-      <input
-        className="modal__form-input"
-        id="register-avatar"
-        name="avatar"
-        placeholder="Avatar URL"
-        onChange={handleChange}
-        value={inputData.avatar}
-      />
     </ModalWithForm>
   );
 }
