@@ -33,6 +33,8 @@ export default class Main extends React.Component {
                 details={clothingItem}
                 key={clothingItem._id}
                 handleCardClick={this.props.handleCardClick}
+                onCardLike={this.props.onCardLike}
+                isLoggedIn={this.props.isLoggedIn}
               />
             ))}
         </ul>

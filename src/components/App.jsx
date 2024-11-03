@@ -46,9 +46,35 @@ function App(props) {
   });
 
   const [clothingItems, setClothingItems] = React.useState([
-    { _id: 0, name: "", weather: "", link: "" },
-    { _id: 1, name: "", weather: "", link: "" },
+    { _id: 0, name: "", weather: "", link: "", likes: [] },
+    { _id: 1, name: "", weather: "", link: "", likes: [] },
   ]);
+
+  const handleCardLike = (id, isLiked) => {
+    const token = getToken();
+    // Check if this card is not currently liked
+    !isLiked
+      ? // if so, send a request to add the user's id to the card's likes array
+        ClothesApi
+          // the first argument is the card's id
+          .addCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard.data : item))
+            );
+          })
+          .catch((err) => console.log(err))
+      : // if not, send a request to remove the user's id from the card's likes array
+        ClothesApi
+          // the first argument is the card's id
+          .removeCardLike(id, token)
+          .then((updatedCard) => {
+            setClothingItems((cards) =>
+              cards.map((item) => (item._id === id ? updatedCard.data : item))
+            );
+          })
+          .catch((err) => console.log(err));
+  };
 
   const updateClothingItems = () => {
     ClothesApi.getClothes()
@@ -301,6 +327,8 @@ function App(props) {
                 handleCardClick={handleCardClick}
                 weatherInfo={weatherInfo}
                 weatherImage={weatherImage}
+                onCardLike={handleCardLike}
+                isLoggedIn={isLoggedIn}
               />
             }
           />

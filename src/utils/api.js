@@ -40,4 +40,18 @@ export default class Api {
       headers: { ...this._headers, authorization: `Bearer ${jwt}` },
     });
   }
+
+  addCardLike(id, jwt) {
+    return this._request(`/items/${id}/likes`, {
+      method: "PUT",
+      headers: { ...this._headers, authorization: `Bearer ${jwt}` },
+    });
+  }
+
+  removeCardLike(id, jwt) {
+    return this._request(`/items/${id}/likes`, {
+      method: "DELETE",
+      headers: { ...this._headers, authorization: `Bearer ${jwt}` },
+    });
+  }
 }

@@ -10,12 +10,38 @@
   overflow: hidden;
 }
 
+.card-item__info-wrapper {
+  position: absolute;
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-item__like-button {
+  border: none;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  background: url(../assets/like-button.svg) no-repeat center;
+}
+
+.card-item__like-button:hover {
+  cursor: pointer;
+}
+
+.card-item__like-button_liked {
+  background-image: url(../assets/like-button_liked.svg);
+}
+
+.card-item__like-button_disabled {
+  display: none;
+}
+
 .card-item__text-wrapper {
   background-color: #ffffff;
   border-radius: 4px;
   text-align: center;
-  position: absolute;
-  margin-top: 15px;
 }
 
 .card-item__text {
