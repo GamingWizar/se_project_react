@@ -340,6 +340,8 @@ function App(props) {
                   setOpenedModal={setOpenedModal}
                   openEditProfile={openEditProfile}
                   signOut={handleSignOut}
+                  onCardLike={handleCardLike}
+                  isLoggedIn={isLoggedIn}
                 />
               </ProtectedRoute>
             }

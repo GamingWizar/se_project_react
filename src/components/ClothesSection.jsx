@@ -27,6 +27,8 @@ export default function ClothesSection(props) {
               details={clothingItem}
               key={clothingItem._id}
               handleCardClick={props.handleCardClick}
+              isLoggedIn={props.isLoggedIn}
+              onCardLike={props.onCardLike}
             />
           ))}
       </ul>

@@ -15,6 +15,8 @@ export default function Profile(props) {
         weatherInfo={props.weatherInfo}
         clothingItems={props.clothingItems}
         setOpenedModal={props.setOpenedModal}
+        isLoggedIn={props.isLoggedIn}
+        onCardLike={props.onCardLike}
       />
     </section>
   );
