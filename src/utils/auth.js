@@ -1,6 +1,9 @@
 export default class Auth {
-  constructor(baseUrl) {
-    this._baseUrl = baseUrl;
+  constructor() {
+    this._baseUrl =
+      process.env.NODE_ENV === "production"
+        ? "https://api.wtwr.spoggi.com"
+        : "http://localhost:3001";
     this._headers = { "Content-Type": "application/json" };
   }
 

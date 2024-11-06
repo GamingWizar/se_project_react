@@ -33,8 +33,8 @@ import nightSnowy from "../assets/night_snowy.svg";
 import nightFoggy from "../assets/night_foggy.svg";
 
 const Weather = new WeatherAPI(weatherKey, latitude, longitude);
-const ClothesApi = new Api("http://localhost:3001");
-const AuthApi = new Auth("http://localhost:3001");
+const ClothesApi = new Api();
+const AuthApi = new Auth();
 
 function App(props) {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);

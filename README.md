@@ -15,7 +15,7 @@ This is the forth project of the Web Development program at Triple Ten. It was c
 
 ## Link to website
 
-https://gamingwizar.github.io/se_project_react/
+https://wtwr.spoggi.com
 
 ## Link to Backend Repo
 
