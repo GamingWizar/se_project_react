@@ -41,3 +41,9 @@
 .side-bar__change-profile {
   margin-bottom: 8px;
 }
+
+@media (max-width: 1050px) {
+  .side-bar {
+    align-items: center;
+  }
+}

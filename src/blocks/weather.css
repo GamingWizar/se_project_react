@@ -25,6 +25,7 @@
   font-size: 36px;
   color: #ffffff;
   line-height: 40px;
+  z-index: 1;
 }
 
 .weather-card__image {
