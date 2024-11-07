@@ -1,6 +1,6 @@
 # Project 4: What to Wear
 
-This is the forth project of the Web Development program at Triple Ten. It was created using HTML, CSS, JavaScript, and React, based on the design provided through Figma.
+This is the forth project of the Web Development program at Triple Ten. It was created using HTML, CSS, JavaScript, JSX, and React, based on the design provided through Figma.
 
 ## Project features
 
@@ -12,6 +12,7 @@ This is the forth project of the Web Development program at Triple Ten. It was c
 - Webpack bundling
 - React
 - API intergration
+- Dynamic layout
 
 ## Link to website
 
@@ -20,3 +21,7 @@ https://wtwr.spoggi.com
 ## Link to Backend Repo
 
 https://github.com/GamingWizar/se_project_express
+
+## Plans to Improve Project
+
+- Add front-end form validation to provide better user feedback
