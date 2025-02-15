@@ -1,12 +1,15 @@
 import React from "react";
 import closeButtonImage from "../assets/close_white.svg";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { admin } from "../utils/constants";
 
 export default function ItemModal(props) {
   const { currentUser } = React.useContext(CurrentUserContext);
   const isOwn = props.details.owner === currentUser._id;
   const itemDeleteButtonClassName = `modal__text-button modal__delete-button ${
-    isOwn ? "modal__delete-button_visible" : "modal__delete-button_hidden"
+    isOwn || currentUser._id === admin
+      ? "modal__delete-button_visible"
+      : "modal__delete-button_hidden"
   }`;
   return (
     <div
