@@ -9,7 +9,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "npm run build && scp -r ./dist/* awizard1011@wtwr.spoggi.com:/home/awizard1011/frontend"
+    "deploy": "npm run build && scp -r ./dist/* carverhannasch@carverhannasch.com:/home/carverhannasch/wtwrfrontend"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -27,5 +27,5 @@
     "gh-pages": "^6.1.1",
     "vite": "^5.3.1"
   },
-  "homepage": "https://wtwr.spoggi.com"
+  "homepage": "https://carverhannasch.com"
 }

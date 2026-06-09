@@ -2,7 +2,7 @@ export default class Auth {
   constructor() {
     this._baseUrl =
       process.env.NODE_ENV === "production"
-        ? "https://api.wtwr.spoggi.com"
+        ? "https://api.wtwr.carverhannasch.com"
         : "http://localhost:3001";
     this._headers = { "Content-Type": "application/json" };
   }
@@ -19,7 +19,7 @@ export default class Auth {
 
   _request(url, fetchOptions) {
     return fetch(`${this._baseUrl}${url}`, fetchOptions).then(
-      this._checkResponse
+      this._checkResponse,
     );
   }
 
